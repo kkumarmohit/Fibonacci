@@ -1,0 +1,31 @@
+# Copyright: 2024 Arm Ltd. All Rights Reserved.
+
+version: '3'
+services:
+  fibonacci-api:
+    build: ./fibonacci-api
+    image: cepe-fibonacci-api:test
+    ports:
+      - 8080:8080
+
+  fibonacci-api-py:
+    build: ./fibonacci-api-py
+    image: cepe-fibonacci-api-py:test
+    ports:
+      - 8082:8080
+
+  lru-cache:
+    build: ./lru-cache
+    image: cepe-lru-cache:test
+    ports:
+      - 8081:8081
+    depends_on:
+      - fibonacci-api
+
+  lru-cache-py:
+    build: ./lru-cache-py
+    image: cepe-lru-cache-py:test
+    ports:
+      - 8083:8081
+    depends_on:
+      - fibonacci-api-py
